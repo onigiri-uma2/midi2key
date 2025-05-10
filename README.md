@@ -1,2 +1,88 @@
 # midi2key
-This application is a GUI tool to convert MIDI keyboard or MIDI sequencer note input to PC keyboard input.
+このアプリは、MIDIキーボードやMIDIシーケンサーのノート入力を、PCのキーボード入力に変換するGUIツールです。
+
+---
+
+## 🎹 主な機能
+
+* MIDIノートを任意のキー入力にマッピング
+* 複数のMIDIポートから同時監視が可能
+* GUIでマッピングの作成・編集・削除が可能
+* ノート番号欄にフォーカスすることで、実際に押した鍵盤から自動入力
+* マッピングと選択ポートを `.json` で保存／復元可能
+* 実行中ステータスの表示
+
+---
+
+## 🔧 必要環境
+
+* Python 3.8以上
+* Windows または macOS（Linuxでも理論上動作します）
+
+### 必要なライブラリ（pip）
+
+```bash
+pip install mido python-rtmidi keyboard
+```
+
+※GUIには標準ライブラリ `tkinter` を使用しています。
+
+---
+
+## 🚀 使い方
+
+1. アプリを起動すると、接続されているMIDIポートの一覧が表示されます。
+2. 使用したいポートにチェックを入れます（複数可）。
+3. ノート番号と対応するキーを入力、またはノート番号欄にフォーカスして鍵盤を押して自動入力。
+4. \[追加] ボタンでマッピングを登録。
+5. \[変換開始] を押すと、MIDIノートがキー入力に変換されます。
+6. \[変換停止] で停止。
+
+### 設定の保存／読み込み
+
+* \[設定保存] で `.json` ファイルとしてマッピングと選択ポートを保存可能
+* \[設定読み込み] で復元可能
+
+---
+
+## 💡 注意点
+
+* MIDIポートの抜き差しを行った場合は、**アプリを再起動**してください。
+* キー入力は `keyboard` モジュールによりエミュレートされます。一部の環境では管理者権限が必要な場合があります。
+* 本アプリはゲーム等のチート行為を意図したものではありません。利用は自己責任でお願いします。
+
+---
+
+## 📁 構成ファイル例（settings.json）
+
+```json
+{
+  "selected_ports": [
+    "MPK mini mk3 MIDI 1"
+  ],
+  "mapping": {
+    "60": "k",
+    "61": "l"
+  }
+}
+```
+
+---
+
+## 🛠 ビルド（オプション）
+
+PyInstaller を使えば `.exe` にもできます：
+
+```bash
+pip install pyinstaller
+pyinstaller --onefile --hidden-import=mido.backends.rtmidi midi2key.py
+```
+
+---
+
+## 📜 ライセンス
+
+MIT License
+
+---
+
